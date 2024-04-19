@@ -24,8 +24,10 @@ def fetch_songs():
 
 def validate_no_votes_input(answers, current):
     try:
-        int(current)
-        return True
+        curr_num = int(current)
+        if curr_num > 0:
+            return True
+        return False
     except ValueError:
         return False
 
@@ -61,7 +63,10 @@ def main():
     for _ in range(int(answers['number_of_votes'])):
         response = requests.post(url, headers=headers, data=data)
 
-    print(f"{answers['number_of_votes']} Stimmen erfolgreich abgegeben.")
+    if int(answers['number_of_votes']) > 1:
+        print(f"{answers['number_of_votes']} Stimmen erfolgreich abgegeben.")
+    else:
+        print(f"Eine Stimme erfolgreich abgegeben.")
 
 
 if __name__ == "__main__":
